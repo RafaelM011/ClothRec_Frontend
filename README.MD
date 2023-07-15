@@ -1,0 +1,3 @@
+# Cloth Recognition App - Frontend
+
+Setting up the frontend repository for later project definition and deadlines....
