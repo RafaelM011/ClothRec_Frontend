@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { Regions } from './components/Regions'
+import { type Data } from './type'
 
 function App (): JSX.Element {
   const [imgInput, setImgInput] = useState<string>()
   const [hidden, setHidden] = useState('hidden')
-  const [regions, setRegions] = useState()
+  const [regions, setRegions] = useState<Data[]>([])
 
   const handleRequest = (): void => {
     fetch('http://127.0.0.1:4000/getImageData', {
@@ -19,10 +21,8 @@ function App (): JSX.Element {
       .catch(err => { console.log(err) })
   }
 
-  console.log(regions)
-
   return (
-    <div className="w-full h-fit min-h-[100vh] bg-gradient-to-r from-violet-500 to-fuchsia-500 flex justify-center">
+    <div className="w-full h-fit min-h-[100vh] bg-gradient-to-r from-violet-500 to-fuchsia-500 flex justify-center gap-4">
       <div>
 
       </div>
@@ -40,9 +40,7 @@ function App (): JSX.Element {
           <img className={`${hidden}`} src={imgInput} alt="recog-img" onLoad={() => { setHidden('block') }} onError={() => { setHidden('hidden') }}/>
         </div>
       </div>
-      <div>
-
-      </div>
+      <Regions regions={regions}/>
     </div>
   )
 }
