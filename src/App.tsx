@@ -22,6 +22,16 @@ function App (): JSX.Element {
       .catch(err => { console.log(err) })
   }
 
+  const loadImage = (): void => {
+    setHidden('block')
+    setRegions([])
+  }
+
+  const onErrorImmage = (): void => {
+    setHidden('hidden')
+    setRegions([])
+  }
+
   return (
     <main className="w-full h-fit min-h-[100vh] bg-gradient-to-r from-violet-500 to-fuchsia-500 flex justify-center gap-4">
       <section className="w-8/12 max-w-[450px] h-fit mt-[30vh]">
@@ -35,18 +45,8 @@ function App (): JSX.Element {
           </button>
         </div>
         <div className="my-4 relative h-fit w-fit">
-          <img className={`${hidden}`} src={imgInput} alt="recog-img" onLoad={() => { setHidden('block') }} onError={() => { setHidden('hidden') }}/>
-          {regions.map(region => {
-            const element = region.region_info.bounding_box
-            const { top_row, left_col, bottom_row, right_col } = element
-            const width = `w-[${Math.trunc(450 * (right_col - left_col))}px]`
-            const height = `h-[${Math.trunc(327 * (bottom_row - top_row))}px]`
-            const top = `top-[${Math.trunc(327 * top_row)}px]`
-            const left = `left-[${Math.trunc(450 * left_col)}px]`
-            return (
-              <BoundingBoxes key={region.id} width={width} height={height} top={top} left={left}/>
-            )
-          })}
+          <img className={`${hidden}`} src={imgInput} alt="recog-img" onLoad={loadImage} onError={onErrorImmage}/>
+          <BoundingBoxes regions={regions}/>
         </div>
       </section>
       <Regions regions={regions}/>
