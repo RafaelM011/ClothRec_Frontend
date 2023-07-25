@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Regions } from './components/Regions'
 import { type Data } from './type'
 import { BoundingBoxes } from './components/BoundingBoxes'
+import { Register } from './components/Register'
+import { createPortal } from 'react-dom'
 
 function App (): JSX.Element {
   const [imgInput, setImgInput] = useState<string>()
@@ -50,6 +52,7 @@ function App (): JSX.Element {
         </div>
       </section>
       <Regions regions={regions}/>
+      {createPortal(<Register/>, document.body)}
     </main>
   )
 }
